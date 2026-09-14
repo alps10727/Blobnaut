@@ -1,1522 +1,365 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="tr" data-lang="tr">
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="Blobnaut is a physics-based platform adventure where precision, momentum and timing define every move.">
-
-    <meta name="keywords"
-          content="Blobnaut, Blobnaut game, platformer game, physics platformer, mobile game, Blue Game">
-
-    <meta name="author" content="Blue Game">
-
-    <meta name="theme-color" content="#07100d">
-
-    <title>Blobnaut — Master Your Momentum</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-        :root {
-            --bg: #06100c;
-            --bg-2: #091610;
-            --card: rgba(16, 31, 24, 0.72);
-
-            --green: #8cff65;
-            --green-2: #52d83f;
-
-            --white: #f5fff2;
-            --text: #dce9dc;
-            --muted: #8c9d8d;
-
-            --border: rgba(140, 255, 101, 0.13);
-
-            --radius: 24px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Inter", sans-serif;
-            background:
-                radial-gradient(
-                    circle at 50% -10%,
-                    rgba(112, 255, 91, 0.12),
-                    transparent 35%
-                ),
-                var(--bg);
-
-            color: var(--white);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-
-            position: fixed;
-            inset: 0;
-
-            pointer-events: none;
-
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,0.018) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,0.018) 1px,
-                    transparent 1px
-                );
-
-            background-size: 60px 60px;
-
-            mask-image:
-                linear-gradient(
-                    to bottom,
-                    black,
-                    transparent 75%
-                );
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        .container {
-            width: min(1180px, calc(100% - 40px));
-            margin: auto;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-
-            z-index: 100;
-
-            background:
-                rgba(6, 16, 12, 0.72);
-
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-
-            border-bottom:
-                1px solid rgba(255,255,255,0.05);
-        }
-
-        .nav {
-            height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            font-size: 19px;
-            font-weight: 900;
-
-            letter-spacing: -0.6px;
-        }
-
-        .brand-icon {
-            width: 40px;
-            height: 40px;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 13px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--green),
-                    var(--green-2)
-                );
-
-            color: #061008;
-
-            font-weight: 900;
-
-            box-shadow:
-                0 0 30px
-                rgba(140, 255, 101, 0.25);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            color: var(--muted);
-
-            font-size: 13px;
-            font-weight: 600;
-
-            transition: 0.25s;
-        }
-
-        .nav-links a:hover {
-            color: var(--white);
-        }
-
-        .nav-button {
-            padding: 11px 18px;
-
-            border-radius: 12px;
-
-            background: var(--green);
-
-            color: #061008 !important;
-
-            font-weight: 800 !important;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 900px;
-
-            display: flex;
-            align-items: center;
-
-            position: relative;
-
-            padding-top: 76px;
-
-            overflow: hidden;
-        }
-
-        .hero-glow {
-            position: absolute;
-
-            width: 650px;
-            height: 650px;
-
-            left: 50%;
-            top: 42%;
-
-            transform: translate(-50%, -50%);
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(103, 255, 82, 0.12),
-                    transparent 65%
-                );
-
-            filter: blur(30px);
-
-            pointer-events: none;
-        }
-
-        .hero-content {
-            text-align: center;
-
-            position: relative;
-            z-index: 2;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-
-            padding: 8px 15px;
-
-            margin-bottom: 26px;
-
-            border:
-                1px solid
-                rgba(140,255,101,0.16);
-
-            border-radius: 999px;
-
-            background:
-                rgba(140,255,101,0.05);
-
-            color: var(--green);
-
-            font-size: 12px;
-            font-weight: 800;
-
-            letter-spacing: 1.4px;
-
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
-            font-size:
-                clamp(68px, 12vw, 145px);
-
-            line-height: 0.88;
-
-            letter-spacing: -8px;
-
-            font-weight: 900;
-
-            margin-bottom: 32px;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #ffffff 0%,
-                    #dfffd8 48%,
-                    #77f45d 100%
-                );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-        }
-
-        .hero h1 span {
-            color: var(--green);
-        }
-
-        .hero-text {
-            max-width: 670px;
-
-            margin: 0 auto 38px;
-
-            color: var(--muted);
-
-            font-size: 18px;
-
-            line-height: 1.8;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-
-            gap: 14px;
-
-            flex-wrap: wrap;
-        }
-
-        .button {
-            min-height: 54px;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 0 24px;
-
-            border-radius: 15px;
-
-            font-size: 14px;
-            font-weight: 800;
-
-            transition:
-                transform 0.25s,
-                box-shadow 0.25s,
-                background 0.25s;
-        }
-
-        .button-primary {
-            background: var(--green);
-            color: #071008;
-
-            box-shadow:
-                0 10px 35px
-                rgba(140,255,101,0.17);
-        }
-
-        .button-primary:hover {
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 16px 45px
-                rgba(140,255,101,0.28);
-        }
-
-        .button-secondary {
-            background:
-                rgba(255,255,255,0.045);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.09);
-
-            color: var(--white);
-        }
-
-        .button-secondary:hover {
-            transform: translateY(-3px);
-
-            background:
-                rgba(255,255,255,0.08);
-        }
-
-        /* =========================
-           GAME VISUAL
-        ========================= */
-
-        .game-preview {
-            width: min(900px, 100%);
-
-            height: 500px;
-
-            margin: 80px auto 0;
-
-            border-radius: 28px;
-
-            border:
-                1px solid
-                rgba(140,255,101,0.15);
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #14271d,
-                    #08120d
-                );
-
-            position: relative;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 50px 100px
-                rgba(0,0,0,0.45),
-                0 0 80px
-                rgba(101,255,81,0.07);
-        }
-
-        .game-preview::before {
-            content: "";
-
-            position: absolute;
-            inset: 0;
-
-            background:
-                radial-gradient(
-                    circle at 50% 40%,
-                    rgba(140,255,101,0.12),
-                    transparent 35%
-                );
-        }
-
-        .game-grid {
-            position: absolute;
-            inset: 0;
-
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,0.035) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,0.035) 1px,
-                    transparent 1px
-                );
-
-            background-size: 50px 50px;
-
-            transform:
-                perspective(500px)
-                rotateX(55deg)
-                scale(1.6);
-
-            transform-origin: bottom;
-        }
-
-        .blob {
-            position: absolute;
-
-            width: 105px;
-            height: 105px;
-
-            left: 50%;
-            top: 48%;
-
-            transform:
-                translate(-50%, -50%);
-
-            border-radius:
-                45% 55% 60% 40%
-                / 50% 45% 55% 50%;
-
-            background:
-                radial-gradient(
-                    circle at 30% 25%,
-                    #eaffdf,
-                    var(--green) 38%,
-                    #37b72b 100%
-                );
-
-            box-shadow:
-                0 0 50px
-                rgba(140,255,101,0.35);
-
-            animation:
-                floatBlob 3s ease-in-out infinite;
-        }
-
-        @keyframes floatBlob {
-
-            0%, 100% {
-                transform:
-                    translate(-50%, -50%)
-                    rotate(-3deg);
-            }
-
-            50% {
-                transform:
-                    translate(-50%, -58%)
-                    rotate(4deg);
-            }
-        }
-
-        .platform {
-            position: absolute;
-
-            height: 18px;
-
-            border-radius: 20px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #65dd4e,
-                    #b0ff94
-                );
-
-            box-shadow:
-                0 0 25px
-                rgba(100,255,80,0.18);
-        }
-
-        .platform.one {
-            width: 240px;
-
-            left: 10%;
-            bottom: 20%;
-        }
-
-        .platform.two {
-            width: 180px;
-
-            right: 12%;
-            bottom: 35%;
-
-            transform: rotate(-7deg);
-        }
-
-        .platform.three {
-            width: 130px;
-
-            left: 43%;
-            bottom: 12%;
-
-            transform: rotate(3deg);
-        }
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats {
-            padding: 25px 0 100px;
-        }
-
-        .stats-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 16px;
-        }
-
-        .stat {
-            padding: 28px;
-
-            text-align: center;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 20px;
-
-            background:
-                rgba(255,255,255,0.025);
-        }
-
-        .stat strong {
-            display: block;
-
-            font-size: 27px;
-
-            margin-bottom: 5px;
-        }
-
-        .stat span {
-            color: var(--muted);
-
-            font-size: 13px;
-        }
-
-        /* =========================
-           SECTIONS
-        ========================= */
-
-        section {
-            padding: 110px 0;
-        }
-
-        .section-label {
-            color: var(--green);
-
-            text-transform: uppercase;
-
-            font-size: 11px;
-            font-weight: 900;
-
-            letter-spacing: 2px;
-
-            margin-bottom: 14px;
-        }
-
-        .section-title {
-            max-width: 700px;
-
-            font-size:
-                clamp(38px, 6vw, 64px);
-
-            line-height: 1;
-
-            letter-spacing: -3px;
-
-            margin-bottom: 18px;
-        }
-
-        .section-text {
-            color: var(--muted);
-
-            max-width: 650px;
-
-            font-size: 16px;
-
-            line-height: 1.8;
-        }
-
-        /* =========================
-           FEATURES
-        ========================= */
-
-        .features {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-top: 55px;
-        }
-
-        .feature {
-            padding: 32px;
-
-            min-height: 260px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: var(--radius);
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(17,35,25,0.75),
-                    rgba(8,17,12,0.75)
-                );
-
-            transition:
-                transform 0.3s,
-                border-color 0.3s;
-        }
-
-        .feature:hover {
-            transform: translateY(-7px);
-
-            border-color:
-                rgba(140,255,101,0.28);
-        }
-
-        .feature-number {
-            color: var(--green);
-
-            font-size: 12px;
-            font-weight: 900;
-
-            margin-bottom: 45px;
-        }
-
-        .feature h3 {
-            font-size: 22px;
-
-            margin-bottom: 12px;
-
-            letter-spacing: -0.7px;
-        }
-
-        .feature p {
-            color: var(--muted);
-
-            font-size: 14px;
-
-            line-height: 1.75;
-        }
-
-        /* =========================
-           GAMEPLAY
-        ========================= */
-
-        .gameplay {
-            background:
-                linear-gradient(
-                    180deg,
-                    transparent,
-                    rgba(120,255,100,0.025),
-                    transparent
-                );
-        }
-
-        .gameplay-content {
-            display: grid;
-
-            grid-template-columns:
-                0.9fr 1.1fr;
-
-            gap: 70px;
-
-            align-items: center;
-        }
-
-        .gameplay-image {
-            min-height: 520px;
-
-            border-radius: 28px;
-
-            border:
-                1px solid var(--border);
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #193522,
-                    #07100b
-                );
-
-            position: relative;
-
-            overflow: hidden;
-        }
-
-        .gameplay-image::after {
-            content:
-                "GAMEPLAY";
-
-            position: absolute;
-
-            left: 50%;
-            top: 50%;
-
-            transform:
-                translate(-50%, -50%);
-
-            color:
-                rgba(255,255,255,0.08);
-
-            font-size: 48px;
-
-            font-weight: 900;
-
-            letter-spacing: -2px;
-        }
-
-        .gameplay-list {
-            margin-top: 35px;
-
-            display: grid;
-
-            gap: 18px;
-        }
-
-        .gameplay-item {
-            display: flex;
-
-            gap: 15px;
-
-            align-items: flex-start;
-        }
-
-        .check {
-            width: 27px;
-            height: 27px;
-
-            flex-shrink: 0;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 9px;
-
-            background:
-                rgba(140,255,101,0.1);
-
-            color: var(--green);
-
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        .gameplay-item h4 {
-            margin-bottom: 3px;
-        }
-
-        .gameplay-item p {
-            color: var(--muted);
-
-            font-size: 13px;
-        }
-
-        /* =========================
-           CTA
-        ========================= */
-
-        .cta {
-            padding: 120px 0;
-        }
-
-        .cta-box {
-            padding:
-                80px 40px;
-
-            text-align: center;
-
-            border-radius: 32px;
-
-            border:
-                1px solid
-                rgba(140,255,101,0.15);
-
-            background:
-                radial-gradient(
-                    circle at 50% 0%,
-                    rgba(140,255,101,0.12),
-                    transparent 55%
-                ),
-                rgba(14,29,20,0.7);
-        }
-
-        .cta-box h2 {
-            font-size:
-                clamp(40px, 6vw, 70px);
-
-            letter-spacing: -3px;
-
-            line-height: 1;
-
-            margin-bottom: 20px;
-        }
-
-        .cta-box p {
-            max-width: 560px;
-
-            margin: 0 auto 32px;
-
-            color: var(--muted);
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            padding: 40px 0;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,0.05);
-        }
-
-        .footer {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 25px;
-        }
-
-        .footer-left {
-            color: var(--muted);
-
-            font-size: 13px;
-        }
-
-        .footer-links {
-            display: flex;
-
-            gap: 24px;
-        }
-
-        .footer-links a {
-            color: var(--muted);
-
-            font-size: 13px;
-
-            transition: 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--green);
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 850px) {
-
-            .nav-links a:not(.nav-button) {
-                display: none;
-            }
-
-            .hero {
-                min-height: 780px;
-            }
-
-            .hero h1 {
-                letter-spacing: -5px;
-            }
-
-            .game-preview {
-                height: 380px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .gameplay-content {
-                grid-template-columns: 1fr;
-            }
-
-            .gameplay-image {
-                min-height: 380px;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .container {
-                width:
-                    calc(100% - 28px);
-            }
-
-            .nav {
-                height: 68px;
-            }
-
-            .brand {
-                font-size: 17px;
-            }
-
-            .brand-icon {
-                width: 36px;
-                height: 36px;
-            }
-
-            .hero {
-                padding-top: 68px;
-                min-height: 720px;
-            }
-
-            .hero h1 {
-                font-size: 70px;
-
-                letter-spacing: -4px;
-            }
-
-            .hero-text {
-                font-size: 15px;
-            }
-
-            .game-preview {
-                height: 300px;
-
-                margin-top: 55px;
-            }
-
-            .blob {
-                width: 75px;
-                height: 75px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            section {
-                padding: 80px 0;
-            }
-
-            .section-title {
-                letter-spacing: -2px;
-            }
-
-            .gameplay-image {
-                min-height: 300px;
-            }
-
-            .cta-box {
-                padding:
-                    60px 22px;
-            }
-
-            .footer {
-                flex-direction: column;
-
-                align-items: flex-start;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kullanim Kosullari — Blobnaut | Blue Game</title>
+<meta name="description" content="Blobnaut kullanim kosullari. Blue Game tarafindan Google Play uzerinden dagitilan mobil oyun.">
+<meta name="theme-color" content="#050A16">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://bluegame.pro/terms">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23FF7A3D'/><circle cx='38' cy='44' r='13' fill='%23FDF6EC'/><circle cx='64' cy='44' r='13' fill='%23FDF6EC'/><circle cx='41' cy='47' r='6' fill='%23241209'/><circle cx='67' cy='47' r='6' fill='%23241209'/></svg>">
+<style>
+  /* Renkler oyunun paletinden. Degistirirsen uc sayfada da degistir. */
+  :root{
+    --base:#050A16; --deep:#0A1730; --rise:#14294F;
+    --text:#F2F6FF; --soft:#A9BBDD; --faint:#6E82A9;
+    --accent:#FF7A3D; --accent-hi:#FFAE6B; --mint:#3BF08F; --violet:#8B6BFF;
+    --line:rgba(169,187,221,.14);
+    --wrap:760px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--base); color:var(--text);
+    font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-hi); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 22px}
+
+  header{
+    position:sticky; top:0; z-index:5; backdrop-filter:blur(10px);
+    background:rgba(5,10,22,.78); border-bottom:1px solid var(--line);
+  }
+  .bar{display:flex; align-items:center; gap:14px; height:62px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700;
+         letter-spacing:.2px; color:var(--text)}
+  .brand:hover{text-decoration:none}
+  .brand svg{display:block}
+  .spacer{flex:1}
+  .langs{display:flex; gap:2px; border:1px solid var(--line); border-radius:999px; padding:3px}
+  .langs button{
+    all:unset; cursor:pointer; padding:5px 12px; border-radius:999px;
+    font-size:13px; font-weight:600; color:var(--faint);
+  }
+  .langs button[aria-pressed="true"]{background:var(--rise); color:var(--text)}
+
+  main{padding:54px 0 30px}
+  h1{font-size:clamp(30px,5.6vw,42px); line-height:1.1; margin:0 0 8px; letter-spacing:-.02em}
+  .sub{color:var(--faint); font-size:14px; margin:0 0 30px}
+  .sub code{font-size:.92em; background:rgba(169,187,221,.12); padding:2px 6px; border-radius:5px}
+  h2{font-size:19px; margin:38px 0 10px; letter-spacing:-.01em}
+  p{margin:0 0 14px; color:var(--soft)}
+  p strong{color:var(--text)}
+  ul{margin:0 0 14px; padding-left:22px; color:var(--soft)}
+  li{margin:5px 0}
+
+  .box{
+    border:1px solid rgba(139,107,255,.32); border-left-width:3px;
+    background:rgba(139,107,255,.08); border-radius:0 12px 12px 0;
+    padding:16px 20px; margin:0 0 34px;
+  }
+  .box p{margin:0; color:var(--text)}
+
+  footer{padding:40px 0 60px; border-top:1px solid var(--line); color:var(--faint);
+         font-size:14px; margin-top:44px}
+  .foot{display:flex; flex-wrap:wrap; gap:10px 26px; align-items:center}
+
+  [data-t]{display:none}
+  html[data-lang="tr"] [data-t="tr"]{display:revert}
+  html[data-lang="en"] [data-t="en"]{display:revert}
+</style>
 </head>
-
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
-
-<header class="navbar">
-
-    <div class="container nav">
-
-        <a href="#home" class="brand">
-
-            <div class="brand-icon">
-                B
-            </div>
-
-            Blobnaut
-
-        </a>
-
-        <nav class="nav-links">
-
-            <a href="#features">
-                Features
-            </a>
-
-            <a href="#gameplay">
-                Gameplay
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a
-                href="#download"
-                class="nav-button"
-            >
-                Get the Game
-            </a>
-
-        </nav>
-
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="52" r="40" fill="#2A1508"/>
+        <circle cx="50" cy="50" r="38" fill="#FF7A3D"/>
+        <circle cx="37" cy="45" r="12" fill="#FDF6EC"/><circle cx="63" cy="45" r="12" fill="#FDF6EC"/>
+        <circle cx="40" cy="48" r="5.5" fill="#241209"/><circle cx="66" cy="48" r="5.5" fill="#241209"/>
+      </svg>
+      Blue Game
+    </a>
+    <span class="spacer"></span>
+    <div class="langs" role="group" aria-label="Dil / Language">
+      <button type="button" data-set="tr" aria-pressed="true">TR</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
     </div>
-
+  </div>
 </header>
 
-
-<!-- =========================
-     HERO
-========================= -->
-
-<main>
-
-<section class="hero" id="home">
-
-    <div class="hero-glow"></div>
-
-    <div class="container">
-
-        <div class="hero-content">
-
-            <div class="eyebrow">
-                A new kind of platform adventure
-            </div>
-
-            <h1>
-                Blobnaut
-            </h1>
-
-            <p class="hero-text">
-
-                Master your momentum. Find your path.
-                Launch through challenging worlds and
-                discover how far you can go.
-
-            </p>
-
-            <div class="buttons">
-
-                <!-- Replace # with your Google Play URL -->
-
-                <a
-                    href="#"
-                    class="button button-primary"
-                >
-                    ▶ &nbsp; Play on Google Play
-                </a>
-
-                <a
-                    href="#gameplay"
-                    class="button button-secondary"
-                >
-                    Explore Gameplay
-                </a>
-
-            </div>
-
-            <div class="game-preview">
-
-                <div class="game-grid"></div>
-
-                <div class="platform one"></div>
-
-                <div class="platform two"></div>
-
-                <div class="platform three"></div>
-
-                <div class="blob"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     STATS
-========================= -->
-
-<section class="stats">
-
-    <div class="container">
-
-        <div class="stats-grid">
-
-            <div class="stat">
-
-                <strong>
-                    Physics
-                </strong>
-
-                <span>
-                    Movement-driven gameplay
-                </span>
-
-            </div>
-
-            <div class="stat">
-
-                <strong>
-                    Precision
-                </strong>
-
-                <span>
-                    Every launch matters
-                </span>
-
-            </div>
-
-            <div class="stat">
-
-                <strong>
-                    Adventure
-                </strong>
-
-                <span>
-                    Worlds waiting to be explored
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     FEATURES
-========================= -->
-
-<section id="features">
-
-    <div class="container">
-
-        <div class="section-label">
-            The Experience
-        </div>
-
-        <h2 class="section-title">
-            Simple to understand.
-            Difficult to master.
-        </h2>
-
-        <p class="section-text">
-
-            Blobnaut is built around a simple idea:
-            your movement is your greatest tool.
-            Learn the physics, understand the environment
-            and make every launch count.
-
-        </p>
-
-
-        <div class="features">
-
-            <article class="feature">
-
-                <div class="feature-number">
-                    01
-                </div>
-
-                <h3>
-                    Momentum
-                </h3>
-
-                <p>
-                    Use movement and momentum to reach
-                    places that seem impossible at first.
-                    Every launch is an opportunity to improve.
-                </p>
-
-            </article>
-
-
-            <article class="feature">
-
-                <div class="feature-number">
-                    02
-                </div>
-
-                <h3>
-                    Precision
-                </h3>
-
-                <p>
-                    Timing and control are everything.
-                    Small adjustments can completely
-                    change the outcome of a run.
-                </p>
-
-            </article>
-
-
-            <article class="feature">
-
-                <div class="feature-number">
-                    03
-                </div>
-
-                <h3>
-                    Discovery
-                </h3>
-
-                <p>
-                    Explore challenging environments,
-                    discover new routes and keep pushing
-                    your limits.
-                </p>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     GAMEPLAY
-========================= -->
-
-<section
-    class="gameplay"
-    id="gameplay"
->
-
-    <div class="container gameplay-content">
-
-        <div class="gameplay-image">
-            <!-- Replace this area with a real gameplay screenshot -->
-        </div>
-
-
-        <div>
-
-            <div class="section-label">
-                Gameplay
-            </div>
-
-            <h2 class="section-title">
-                Every movement
-                has a purpose.
-            </h2>
-
-            <p class="section-text">
-
-                Blobnaut focuses on satisfying movement,
-                challenging platforming and the feeling
-                of finally mastering a section that once
-                seemed impossible.
-
-            </p>
-
-
-            <div class="gameplay-list">
-
-                <div class="gameplay-item">
-
-                    <div class="check">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <h4>
-                            Physics-driven movement
-                        </h4>
-
-                        <p>
-                            Movement and momentum are at
-                            the heart of the experience.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="gameplay-item">
-
-                    <div class="check">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <h4>
-                            Challenging environments
-                        </h4>
-
-                        <p>
-                            Learn each environment and
-                            discover the best way forward.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="gameplay-item">
-
-                    <div class="check">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <h4>
-                            Progress through mastery
-                        </h4>
-
-                        <p>
-                            Practice, improve and push
-                            further with every attempt.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section id="about">
-
-    <div class="container">
-
-        <div class="section-label">
-            About Blobnaut
-        </div>
-
-        <h2 class="section-title">
-            Built for players
-            who love a challenge.
-        </h2>
-
-        <p class="section-text">
-
-            Blobnaut is an independent mobile game
-            developed by Blue Game.
-
-            <br><br>
-
-            Our goal is simple:
-            create games that are easy to pick up,
-            satisfying to play and difficult to forget.
-
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     DOWNLOAD CTA
-========================= -->
-
-<section
-    class="cta"
-    id="download"
->
-
-    <div class="container">
-
-        <div class="cta-box">
-
-            <div class="section-label">
-                Start Your Journey
-            </div>
-
-            <h2>
-                Ready to launch?
-            </h2>
-
-            <p>
-
-                Download Blobnaut and discover
-                how far you can go.
-
-            </p>
-
-            <!-- Replace # with your Google Play URL -->
-
-            <a
-                href="#"
-                class="button button-primary"
-            >
-                ▶ &nbsp; Download Blobnaut
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
+<main class="wrap">
+
+<!-- ==================== TURKCE ==================== -->
+<div data-t="tr">
+
+  <h1>Kullanim Kosullari</h1>
+  <p class="sub">Son guncelleme: 14 Eylul 2026 &nbsp;·&nbsp; Blue Game &nbsp;·&nbsp;
+    Blobnaut <code>pro.bluegame.blobnaut</code></p>
+
+  <div class="box">
+    <p><strong>Kisa hali:</strong> Blobnaut'u kisisel kullanimin icin ucretsiz
+    oynayabilirsin. Oyunu kopyalayip dagitamaz, degistiremez ya da satamazsin.
+    Oyun &ldquo;oldugu gibi&rdquo; sunulur. Gizlilik tarafi icin
+    <a href="/privacy">Gizlilik Politikasi</a>'na bak.</p>
+  </div>
+
+  <h2>1. Taraflar ve kabul</h2>
+  <p>Bu kosullar, <strong>Blue Game</strong> (&ldquo;biz&rdquo;) tarafindan
+  gelistirilen <strong>Blobnaut</strong> adli mobil oyunun (&ldquo;Oyun&rdquo;)
+  kullanimini duzenler. Oyunu indirip kurdugunuzda bu kosullari kabul etmis
+  olursunuz. Kabul etmiyorsaniz oyunu kurmayin; kurduysaniz kaldirin.</p>
+
+  <h2>2. Lisans</h2>
+  <p>Size, Oyun'u sahip oldugunuz cihazlarda <strong>kisisel ve ticari olmayan</strong>
+  amacla kullanmaniz icin devredilemez, munhasir olmayan ve geri alinabilir bir
+  lisans veriyoruz. Oyun size satilmaz, lisanslanir.</p>
+  <p>Bu lisans kapsaminda <strong>yapamayacaklariniz</strong>:</p>
+  <ul>
+    <li>Oyun'u ya da bir parcasini kopyalamak, yeniden dagitmak, satmak veya
+        kiralamak,</li>
+    <li>kaynak koda donusturmek, tersine muhendislik yapmak ya da parcalarina
+        ayirmak (yururlukteki mevzuatin acikca izin verdigi haller sakli),</li>
+    <li>degistirilmis surumler (&ldquo;mod&rdquo;, hile yamasi, yeniden paketlenmis
+        APK) olusturmak ya da dagitmak,</li>
+    <li>Oyun'un adini, simgesini, karakterlerini, muzigini veya gorsellerini izinsiz
+        kullanmak,</li>
+    <li>Oyun'u Google Play disindaki kaynaklardan dagitmak.</li>
+  </ul>
+
+  <h2>3. Icerik uretimi</h2>
+  <p>Oyun'dan aldiginiz ekran goruntulerini ve video kayitlarini, yayin ve video
+  platformlarinda paylasmakta serbestsiniz &mdash; para kazandiran kanallar dahil.
+  Bunun icin ayrica izin almaniz gerekmez. Tek kosul, icerigin Oyun'un resmi
+  kaynagiymis gibi sunulmamasidir.</p>
+
+  <h2>4. Fikri mulkiyet</h2>
+  <p>Oyun'un kodu, tasarimi, karakterleri, seviyeleri, sesi, muzigi, adi ve logosu
+  dahil tum ogeleri Blue Game'e aittir ve telif hakki mevzuatiyla korunur. Bu
+  kosullar, acikca verilenler disinda hicbir hak devretmez.</p>
+
+  <h2>5. Oyun kaydi</h2>
+  <p>Ilerlemeniz yalnizca cihazinizda saklanir; bizde hicbir kopyasi yoktur.
+  Cihazinizi kaybetmeniz, Oyun'u silmeniz ya da cihaz verilerini temizlemeniz
+  halinde ilerlemenizi geri getiremeyiz. Android'in kendi yedekleme ozelligi aciksa
+  kayit sizin Google hesabiniza yedeklenebilir; bu yedek bizim degil, sizin
+  kontrolunuzdedir.</p>
+
+  <h2>6. Ucretlendirme</h2>
+  <p>Oyun bu surumde <strong>ucretsizdir</strong> ve uygulama ici satin alma ya da
+  reklam icermez.</p>
+  <p>Ileride uygulama ici satin alma eklenirse: tum odemeler
+  <strong>Google Play</strong> uzerinden yapilir, biz odeme bilgilerinizi gormeyiz
+  ve saklamayiz; iade talepleri Google Play'in iade politikasina tabidir. Satin
+  alinan sanal ogeler (altin, karakter vb.) gercek dunyada hicbir parasal degeri
+  olmayan, yalnizca Oyun icinde kullanilan lisanslardir; nakde cevrilemez ve
+  devredilemez. Boyle bir degisiklik yapilirsa bu sayfa, ilgili guncelleme
+  yayinlanmadan once guncellenir.</p>
+
+  <h2>7. Guncellemeler ve kullanilabilirlik</h2>
+  <p>Oyun'u guncelleme, ozellik ekleme ya da cikarma hakkimiz saklidir. Oyun,
+  yeni bir surum olup olmadigini cihazinizdaki Google Play Store uygulamasina
+  sorabilir ve size guncelleme onerebilir. Oyun'un dagitimini ileride durdurabiliriz;
+  boyle bir durumda cihazinizda kurulu surumu kullanmaya devam edebilirsiniz.</p>
+
+  <h2>8. Garanti reddi</h2>
+  <p>Oyun <strong>&ldquo;oldugu gibi&rdquo;</strong> ve &ldquo;mevcut haliyle&rdquo;
+  sunulur. Kesintisiz ya da hatasiz calisacagini, her cihazla uyumlu olacagini veya
+  belirli bir amaca uygun olacagini taahhut etmiyoruz. Yururlukteki mevzuatin izin
+  verdigi olcude, acik ya da zimni tum garantileri reddediyoruz.</p>
+
+  <h2>9. Sorumlulugun sinirlandirilmasi</h2>
+  <p>Yururlukteki mevzuatin izin verdigi azami olcude, Oyun'un kullanimindan ya da
+  kullanilamamasindan dogan dolayli, arizi veya sonuc niteligindeki zararlardan
+  (veri kaybi ve kaydedilmis ilerlemenin kaybi dahil) sorumlu degiliz.</p>
+  <p>Bu madde, mevzuatin sinirlandirilmasina izin vermedigi sorumluluklari
+  &mdash; kast ve agir ihmal ile tuketici mevzuatindan dogan haklariniz dahil
+  &mdash; kapsamaz. Tuketici olarak sahip oldugunuz yasal haklar bu kosullardan
+  etkilenmez.</p>
+
+  <h2>10. Yas</h2>
+  <p>Oyun her yas icin uygundur ve hicbir veri toplamaz. 18 yasindan kucukseniz,
+  uygulama ici satin alma ozelligi ileride eklendiginde bunu kullanmadan once
+  ebeveyninizin ya da vasinizin onayini alin.</p>
+
+  <h2>11. Fesih</h2>
+  <p>Bu kosullari ihlal etmeniz halinde lisansiniz kendiliginden sona erer; bu
+  durumda Oyun'u cihazinizdan kaldirmaniz gerekir. Siz de Oyun'u istediginiz an
+  silerek bu sozlesmeyi sona erdirebilirsiniz.</p>
+
+  <h2>12. Degisiklikler</h2>
+  <p>Bu kosullar zaman zaman guncellenebilir. Guncel surum her zaman bu sayfada
+  yayinlanir ve ustteki tarih yururluk tarihini gosterir. Onemli bir degisiklik
+  olursa degisiklik, ilgili uygulama guncellemesi yayinlanmadan once burada
+  yayinlanir.</p>
+
+  <h2>13. Uygulanacak hukuk</h2>
+  <p>Bu kosullar Turkiye Cumhuriyeti hukukuna tabidir. Uyusmazliklarda Turkiye
+  mahkemeleri yetkilidir. Tuketici olarak, kendi yerlesim yerinizdeki tuketici
+  hakem heyetlerine ve mahkemelerine basvurma hakkiniz sakli kalir.</p>
+
+  <h2>14. Iletisim</h2>
+  <p>Blue Game<br>
+  <a href="mailto:support@bluegame.pro">support@bluegame.pro</a><br>
+  <a href="https://bluegame.pro/">bluegame.pro</a></p>
+
+</div>
+
+<!-- ==================== ENGLISH ==================== -->
+<div data-t="en">
+
+  <h1>Terms of Service</h1>
+  <p class="sub">Last updated: 14 September 2026 &nbsp;·&nbsp; Blue Game &nbsp;·&nbsp;
+    Blobnaut <code>pro.bluegame.blobnaut</code></p>
+
+  <div class="box">
+    <p><strong>In short:</strong> you may play Blobnaut for free, for yourself. You may
+    not copy, redistribute, modify or sell it. The game is provided as is. For the
+    privacy side, see the <a href="/privacy">Privacy Policy</a>.</p>
+  </div>
+
+  <h2>1. Parties and acceptance</h2>
+  <p>These terms govern your use of <strong>Blobnaut</strong> (the
+  &ldquo;Game&rdquo;), a mobile game developed by <strong>Blue Game</strong>
+  (&ldquo;we&rdquo;). By downloading and installing the Game you accept these terms.
+  If you do not accept them, do not install the Game; if you already have, uninstall
+  it.</p>
+
+  <h2>2. Licence</h2>
+  <p>We grant you a non-exclusive, non-transferable, revocable licence to use the Game
+  on devices you own, for <strong>personal, non-commercial</strong> purposes. The Game
+  is licensed to you, not sold.</p>
+  <p>Under this licence you may <strong>not</strong>:</p>
+  <ul>
+    <li>copy, redistribute, sell or rent the Game or any part of it,</li>
+    <li>decompile, reverse-engineer or disassemble it (except where applicable law
+        expressly permits it),</li>
+    <li>create or distribute modified versions (mods, cheat patches, repackaged
+        APKs),</li>
+    <li>use the Game's name, icon, characters, music or artwork without
+        permission,</li>
+    <li>distribute the Game from any source other than Google Play.</li>
+  </ul>
+
+  <h2>3. Content creation</h2>
+  <p>You are free to share screenshots and video recordings of the Game on streaming
+  and video platforms, including monetised channels. No separate permission is needed.
+  The only condition is that your content must not be presented as an official source
+  for the Game.</p>
+
+  <h2>4. Intellectual property</h2>
+  <p>All elements of the Game &mdash; its code, design, characters, levels, sound,
+  music, name and logo &mdash; belong to Blue Game and are protected by copyright law.
+  These terms transfer no rights other than those expressly granted.</p>
+
+  <h2>5. Your save data</h2>
+  <p>Your progress is stored only on your device; we hold no copy of it. If you lose
+  your device, uninstall the Game, or clear its data, we cannot restore your progress.
+  If Android's own backup feature is enabled, your save may be backed up to your
+  Google account; that backup is under your control, not ours.</p>
+
+  <h2>6. Price and purchases</h2>
+  <p>In this version the Game is <strong>free</strong> and contains no in-app
+  purchases and no advertising.</p>
+  <p>If in-app purchases are added in future: all payments are processed by
+  <strong>Google Play</strong>; we neither see nor store your payment details, and
+  refunds are subject to Google Play's refund policy. Virtual items (gold, characters
+  and similar) are licences usable only inside the Game, have no monetary value in the
+  real world, and cannot be exchanged for cash or transferred. Should such a change be
+  made, this page will be updated before the corresponding app update ships.</p>
+
+  <h2>7. Updates and availability</h2>
+  <p>We may update the Game and add or remove features. The Game may ask the Google
+  Play Store app on your device whether a newer version exists and offer you an
+  update. We may stop distributing the Game in future; if that happens, you may keep
+  using the version installed on your device.</p>
+
+  <h2>8. Disclaimer of warranties</h2>
+  <p>The Game is provided <strong>&ldquo;as is&rdquo;</strong> and &ldquo;as
+  available&rdquo;. We do not warrant that it will run uninterrupted or error-free,
+  that it is compatible with every device, or that it is fit for any particular
+  purpose. To the extent permitted by applicable law, we disclaim all warranties,
+  express or implied.</p>
+
+  <h2>9. Limitation of liability</h2>
+  <p>To the maximum extent permitted by applicable law, we are not liable for any
+  indirect, incidental or consequential damages arising from your use of, or inability
+  to use, the Game &mdash; including loss of data and loss of saved progress.</p>
+  <p>Nothing in this section limits liability that the law does not allow to be
+  limited, including wilful misconduct, gross negligence, and your rights under
+  consumer protection law. Your statutory rights as a consumer are unaffected by these
+  terms.</p>
+
+  <h2>10. Age</h2>
+  <p>The Game is suitable for all ages and collects no data. If you are under 18,
+  please get your parent's or guardian's approval before using in-app purchases, if
+  and when that feature is added.</p>
+
+  <h2>11. Termination</h2>
+  <p>Your licence ends automatically if you breach these terms, in which case you must
+  uninstall the Game. You may end this agreement at any time by deleting the Game.</p>
+
+  <h2>12. Changes</h2>
+  <p>These terms may be updated from time to time. The current version is always
+  published on this page, and the date at the top shows when it took effect. Any
+  material change will be published here before the corresponding app update
+  ships.</p>
+
+  <h2>13. Governing law</h2>
+  <p>These terms are governed by the laws of the Republic of T&uuml;rkiye, and the
+  Turkish courts have jurisdiction. If you are a consumer, you keep the right to bring
+  proceedings before the consumer arbitration committees and courts of your own place
+  of residence.</p>
+
+  <h2>14. Contact</h2>
+  <p>Blue Game<br>
+  <a href="mailto:support@bluegame.pro">support@bluegame.pro</a><br>
+  <a href="https://bluegame.pro/">bluegame.pro</a></p>
+
+</div>
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
-
-    <div class="container footer">
-
-        <div class="footer-left">
-
-            © 2026 Blue Game.
-            All rights reserved.
-
-        </div>
-
-        <div class="footer-links">
-
-            <a href="mailto:support@bluegame.pro">
-                Support
-            </a>
-
-            <a href="/privacy.html">
-                Privacy Policy
-            </a>
-
-            <a href="/terms.html">
-                Terms of Service
-            </a>
-
-        </div>
-
-    </div>
-
+  <div class="wrap foot">
+    <span>© <span class="y">2026</span> Blue Game</span>
+    <a href="/" data-t="tr">Ana sayfa</a>
+    <a href="/" data-t="en">Home</a>
+    <a href="/privacy" data-t="tr">Gizlilik Politikasi</a>
+    <a href="/privacy" data-t="en">Privacy Policy</a>
+    <a href="mailto:support@bluegame.pro">support@bluegame.pro</a>
+  </div>
 </footer>
+
+<script>
+  // Dil secimi. Tercih localStorage'da tutuluyor; okunamazsa tarayicinin
+  // diline bakip TR ya da EN'e dusuyor. Sunucu tarafi yok, sayfa tek dosya.
+  (function () {
+    var html = document.documentElement;
+    function set(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      var bs = document.querySelectorAll('.langs button');
+      for (var i = 0; i < bs.length; i++) {
+        bs[i].setAttribute('aria-pressed', bs[i].dataset.set === l ? 'true' : 'false');
+      }
+      try { localStorage.setItem('bg-lang', l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('bg-lang'); } catch (e) {}
+    set(saved || ((navigator.language || 'tr').slice(0, 2) === 'tr' ? 'tr' : 'en'));
+    document.querySelector('.langs').addEventListener('click', function (e) {
+      if (e.target.dataset && e.target.dataset.set) set(e.target.dataset.set);
+    });
+    var ys = document.querySelectorAll('.y');
+    for (var i = 0; i < ys.length; i++) ys[i].textContent = new Date().getFullYear();
+  })();
+</script>
 
 </body>
 </html>
