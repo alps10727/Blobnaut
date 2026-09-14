@@ -1,1 +1,325 @@
+<!doctype html>
+<html lang="tr" data-lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gizlilik Politikasi — Blobnaut | Blue Game</title>
+<meta name="description" content="Blobnaut gizlilik politikasi. Oyun hicbir veri toplamaz, hicbir izin istemez, reklam icermez.">
+<meta name="theme-color" content="#050A16">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://bluegame.pro/privacy">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23FF7A3D'/><circle cx='38' cy='44' r='13' fill='%23FDF6EC'/><circle cx='64' cy='44' r='13' fill='%23FDF6EC'/><circle cx='41' cy='47' r='6' fill='%23241209'/><circle cx='67' cy='47' r='6' fill='%23241209'/></svg>">
+<style>
+  /* Renkler oyunun paletinden. Degistirirsen uc sayfada da degistir. */
+  :root{
+    --base:#050A16; --deep:#0A1730; --rise:#14294F;
+    --text:#F2F6FF; --soft:#A9BBDD; --faint:#6E82A9;
+    --accent:#FF7A3D; --accent-hi:#FFAE6B; --mint:#3BF08F; --violet:#8B6BFF;
+    --line:rgba(169,187,221,.14);
+    --wrap:760px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--base); color:var(--text);
+    font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-hi); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 22px}
 
+  header{
+    position:sticky; top:0; z-index:5; backdrop-filter:blur(10px);
+    background:rgba(5,10,22,.78); border-bottom:1px solid var(--line);
+  }
+  .bar{display:flex; align-items:center; gap:14px; height:62px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700;
+         letter-spacing:.2px; color:var(--text)}
+  .brand:hover{text-decoration:none}
+  .brand svg{display:block}
+  .spacer{flex:1}
+  .langs{display:flex; gap:2px; border:1px solid var(--line); border-radius:999px; padding:3px}
+  .langs button{
+    all:unset; cursor:pointer; padding:5px 12px; border-radius:999px;
+    font-size:13px; font-weight:600; color:var(--faint);
+  }
+  .langs button[aria-pressed="true"]{background:var(--rise); color:var(--text)}
+
+  main{padding:54px 0 30px}
+  h1{font-size:clamp(30px,5.6vw,42px); line-height:1.1; margin:0 0 8px; letter-spacing:-.02em}
+  .sub{color:var(--faint); font-size:14px; margin:0 0 30px}
+  .sub code{font-size:.92em; background:rgba(169,187,221,.12); padding:2px 6px; border-radius:5px}
+  h2{font-size:19px; margin:38px 0 10px; letter-spacing:-.01em}
+  p{margin:0 0 14px; color:var(--soft)}
+  p strong{color:var(--text)}
+  ul{margin:0 0 14px; padding-left:22px; color:var(--soft)}
+  li{margin:5px 0}
+
+  .box{
+    border:1px solid rgba(59,240,143,.28); border-left-width:3px;
+    background:rgba(59,240,143,.07); border-radius:0 12px 12px 0;
+    padding:16px 20px; margin:0 0 34px;
+  }
+  .box p{margin:0; color:var(--text)}
+
+  .tldr{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+        margin:0 0 14px}
+  .tldr div{border:1px solid var(--line); border-radius:12px; padding:14px 16px;
+            background:linear-gradient(180deg,rgba(20,41,79,.34),rgba(10,23,48,.18));
+            font-size:15px; color:var(--soft)}
+  .tldr b{display:block; color:var(--text); font-size:15px; margin-bottom:2px}
+
+  footer{padding:40px 0 60px; border-top:1px solid var(--line); color:var(--faint);
+         font-size:14px; margin-top:44px}
+  .foot{display:flex; flex-wrap:wrap; gap:10px 26px; align-items:center}
+
+  [data-t]{display:none}
+  html[data-lang="tr"] [data-t="tr"]{display:revert}
+  html[data-lang="en"] [data-t="en"]{display:revert}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="52" r="40" fill="#2A1508"/>
+        <circle cx="50" cy="50" r="38" fill="#FF7A3D"/>
+        <circle cx="37" cy="45" r="12" fill="#FDF6EC"/><circle cx="63" cy="45" r="12" fill="#FDF6EC"/>
+        <circle cx="40" cy="48" r="5.5" fill="#241209"/><circle cx="66" cy="48" r="5.5" fill="#241209"/>
+      </svg>
+      Blue Game
+    </a>
+    <span class="spacer"></span>
+    <div class="langs" role="group" aria-label="Dil / Language">
+      <button type="button" data-set="tr" aria-pressed="true">TR</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ==================== TURKCE ==================== -->
+<div data-t="tr">
+
+  <h1>Gizlilik Politikasi</h1>
+  <p class="sub">Son guncelleme: 14 Eylul 2026 &nbsp;·&nbsp; Blue Game &nbsp;·&nbsp;
+    Blobnaut <code>pro.bluegame.blobnaut</code></p>
+
+  <div class="box">
+    <p><strong>Kisa hali:</strong> Bu oyun hakkinizda hicbir veri toplamaz, saklamaz
+    veya paylasmaz. Internet baglantisi kullanmaz. Reklam icermez. Hesap acmanizi
+    istemez. Android izin listesi bostur.</p>
+  </div>
+
+  <div class="tldr">
+    <div><b>Toplanan veri</b>Hicbiri</div>
+    <div><b>Istenen izin</b>Hicbiri</div>
+    <div><b>Reklam / analiz</b>Yok</div>
+    <div><b>Hesap</b>Gerekmiyor</div>
+  </div>
+
+  <h2>1. Bu politika neyi kapsiyor</h2>
+  <p>Bu politika, Blue Game tarafindan gelistirilen ve Google Play uzerinden
+  dagitilan <strong>Blobnaut</strong> adli mobil oyunu kapsar. Baska bir
+  uygulamayi, bu sitedeki diger sayfalari veya ucuncu taraf hizmetleri kapsamaz.</p>
+
+  <h2>2. Toplanan veriler</h2>
+  <p><strong>Hicbiri.</strong> Uygulama sizden isim, e-posta adresi, telefon
+  numarasi, konum, kisi listesi, fotograf, cihaz kimligi veya baska herhangi bir
+  kisisel bilgi istemez ve bunlara erisemez. Uygulamanin icinde ag kodu, analiz
+  aracisi veya ucuncu taraf yazilim gelistirme kiti (SDK) bulunmaz.</p>
+  <p>Uygulamanin Android izin listesi bostur: kurulumda veya calisma aninda
+  hicbir izin talep etmez. Bunu Google Play magaza sayfasindaki
+  &ldquo;Uygulama izinleri&rdquo; bolumunden kendiniz dogrulayabilirsiniz.</p>
+
+  <h2>3. Cihazinizda saklananlar</h2>
+  <p>Oyun yalnizca oyun ilerlemenizi <strong>kendi cihazinizda</strong> saklar:</p>
+  <ul>
+    <li>hangi bolumleri bitirdiginiz ve kac yildiz aldiginiz,</li>
+    <li>topladiginiz altin ve satin aldiginiz karakterler,</li>
+    <li>secili karakteriniz,</li>
+    <li>ses ve titresim ayarlariniz,</li>
+    <li>secili dil.</li>
+  </ul>
+  <p>Bu bilgiler cihazinizin uygulama alanindan disari cikmaz ve bize ulasmaz.
+  Uygulamayi sildiginizde hepsi silinir. Oyun icindeki &ldquo;ilerlemeyi sifirla&rdquo;
+  secenegi de ayni kayitlari siler.</p>
+
+  <h2>4. Android yedekleme</h2>
+  <p>Android, cihaz ayarlarinizda yedekleme aciksa uygulama verilerini
+  <strong>sizin kendi Google hesabiniza</strong> yedekleyebilir. Bu, Google'in
+  isletim sistemi ozelligidir; yedek sizin hesabinizda durur ve bizim ona erisimimiz
+  yoktur. Cihaz ayarlarinizdan kapatabilirsiniz.</p>
+
+  <h2>5. Reklam ve analiz</h2>
+  <p>Yoktur. Uygulamada reklam agi, analiz araci, cokme raporlama servisi veya
+  ucuncu taraf takip kodu bulunmaz. Reklam kimliginiz (Advertising ID) okunmaz.</p>
+
+  <h2>6. Ucuncu taraflar</h2>
+  <p>Uygulama yalnizca cihazinizda zaten kurulu olan <strong>Google Play Store
+  uygulamasiyla</strong>, yeni bir surum olup olmadigini sormak icin konusur. Bu
+  sorguyu Play Store yurutur, bizim kodumuz degil, ve sonucundan bize hicbir bilgi
+  gelmez. Bu islem Google'in kendi gizlilik politikasina tabidir.</p>
+  <p>Oyunun dagitimi Google Play uzerinden yapildigi icin, indirme ve guncelleme
+  sirasinda Google'in kendi topladigi veriler
+  <a href="https://policies.google.com/privacy" rel="noopener">Google Gizlilik
+  Politikasi</a> kapsamindadir ve bizim kontrolumuzde degildir.</p>
+
+  <h2>7. Cocuklar</h2>
+  <p>Uygulama her yas icin uygundur ve hicbir kullanicidan, yasi ne olursa olsun,
+  veri toplamaz. Veri toplanmadigi icin ebeveyn onayi gerektiren bir islem de
+  bulunmaz.</p>
+
+  <h2>8. Haklariniz</h2>
+  <p>KVKK ve GDPR gibi duzenlemeler, hakkinizda islenen verilere erisme, duzeltme
+  ve silme hakki tanir. Bizim hakkinizda isledigimiz hicbir veri olmadigi icin
+  uygulanacak bir talep de yoktur. Yine de bir sorunuz varsa yazabilirsiniz.</p>
+
+  <h2>9. Degisiklikler</h2>
+  <p>Ileride reklam veya uygulama ici satin alma eklenirse bu sayfa guncellenir ve
+  degisiklik, ilgili uygulama guncellemesi yayinlanmadan <strong>once</strong>
+  burada yayinlanir. Sayfanin ustundeki tarih her zaman yururlukteki surumu
+  gosterir.</p>
+
+  <h2>10. Iletisim</h2>
+  <p>Blue Game<br>
+  <a href="mailto:support@bluegame.pro">support@bluegame.pro</a><br>
+  <a href="https://bluegame.pro/">bluegame.pro</a></p>
+
+</div>
+
+<!-- ==================== ENGLISH ==================== -->
+<div data-t="en">
+
+  <h1>Privacy Policy</h1>
+  <p class="sub">Last updated: 14 September 2026 &nbsp;·&nbsp; Blue Game &nbsp;·&nbsp;
+    Blobnaut <code>pro.bluegame.blobnaut</code></p>
+
+  <div class="box">
+    <p><strong>In short:</strong> this game collects, stores and shares no data about
+    you. It does not use the internet, it contains no advertising, and it asks for no
+    account. Its Android permission list is empty.</p>
+  </div>
+
+  <div class="tldr">
+    <div><b>Data collected</b>None</div>
+    <div><b>Permissions</b>None</div>
+    <div><b>Ads / analytics</b>None</div>
+    <div><b>Account</b>Not required</div>
+  </div>
+
+  <h2>1. What this policy covers</h2>
+  <p>This policy covers <strong>Blobnaut</strong>, a mobile game developed by Blue
+  Game and distributed through Google Play. It does not cover any other application,
+  the other pages of this website, or third-party services.</p>
+
+  <h2>2. Data we collect</h2>
+  <p><strong>None.</strong> The app never asks for and cannot access your name, email
+  address, phone number, location, contacts, photos, device identifiers or any other
+  personal information. It contains no networking code, no analytics library and no
+  third-party SDK.</p>
+  <p>The app's Android permission list is empty: it requests no permission at install
+  time or at runtime. You can verify this yourself in the &ldquo;App permissions&rdquo;
+  section of its Google Play listing.</p>
+
+  <h2>3. Stored on your device</h2>
+  <p>The game stores only your progress, <strong>on your own device</strong>:</p>
+  <ul>
+    <li>which levels you have finished and how many stars you earned,</li>
+    <li>the gold you have collected and the characters you have unlocked,</li>
+    <li>your selected character,</li>
+    <li>your sound and vibration settings,</li>
+    <li>your chosen language.</li>
+  </ul>
+  <p>None of it leaves your device's app storage or reaches us, and all of it is
+  deleted when you uninstall the app. The in-game &ldquo;reset progress&rdquo; option
+  deletes the same records.</p>
+
+  <h2>4. Android backup</h2>
+  <p>If backup is switched on in your device settings, Android may back the app's data
+  up to <strong>your own Google account</strong>. That is an operating-system feature;
+  the backup belongs to your account and we have no access to it. You can turn it off
+  in your device settings.</p>
+
+  <h2>5. Advertising and analytics</h2>
+  <p>There are none. The app contains no ad network, analytics library, crash
+  reporting service or third-party tracking code, and it does not read your
+  Advertising ID.</p>
+
+  <h2>6. Third parties</h2>
+  <p>The app talks only to the <strong>Google Play Store app</strong> already
+  installed on your device, to ask whether a newer version exists. That query is
+  performed by the Play Store, not by our code, and no information from it reaches us.
+  It is subject to Google's own privacy policy.</p>
+  <p>Because the game is distributed through Google Play, whatever Google itself
+  collects during download and update is governed by the
+  <a href="https://policies.google.com/privacy" rel="noopener">Google Privacy
+  Policy</a> and is outside our control.</p>
+
+  <h2>7. Children</h2>
+  <p>The app is suitable for all ages and collects no data from any user, of any age.
+  Because no data is collected, there is no processing that would require parental
+  consent.</p>
+
+  <h2>8. Your rights</h2>
+  <p>Regulations such as the GDPR and Turkey's KVKK give you the right to access,
+  correct and erase data held about you. We hold no data about you, so there is
+  nothing for such a request to act on. You are welcome to write to us with any
+  question all the same.</p>
+
+  <h2>9. Changes</h2>
+  <p>If advertising or in-app purchases are added in future, this page will be updated
+  and the change published here <strong>before</strong> the corresponding app update
+  ships. The date at the top of this page always reflects the version in force.</p>
+
+  <h2>10. Contact</h2>
+  <p>Blue Game<br>
+  <a href="mailto:support@bluegame.pro">support@bluegame.pro</a><br>
+  <a href="https://bluegame.pro/">bluegame.pro</a></p>
+
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span class="y">2026</span> Blue Game</span>
+    <a href="/" data-t="tr">Ana sayfa</a>
+    <a href="/" data-t="en">Home</a>
+    <a href="/terms" data-t="tr">Kullanim Kosullari</a>
+    <a href="/terms" data-t="en">Terms of Service</a>
+    <a href="mailto:support@bluegame.pro">support@bluegame.pro</a>
+  </div>
+</footer>
+
+<script>
+  // Dil secimi. Tercih localStorage'da tutuluyor; okunamazsa tarayicinin
+  // diline bakip TR ya da EN'e dusuyor. Sunucu tarafi yok, sayfa tek dosya.
+  (function () {
+    var html = document.documentElement;
+    function set(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      var bs = document.querySelectorAll('.langs button');
+      for (var i = 0; i < bs.length; i++) {
+        bs[i].setAttribute('aria-pressed', bs[i].dataset.set === l ? 'true' : 'false');
+      }
+      try { localStorage.setItem('bg-lang', l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('bg-lang'); } catch (e) {}
+    set(saved || ((navigator.language || 'tr').slice(0, 2) === 'tr' ? 'tr' : 'en'));
+    document.querySelector('.langs').addEventListener('click', function (e) {
+      if (e.target.dataset && e.target.dataset.set) set(e.target.dataset.set);
+    });
+    var ys = document.querySelectorAll('.y');
+    for (var i = 0; i < ys.length; i++) ys[i].textContent = new Date().getFullYear();
+  })();
+</script>
+
+</body>
+</html>
