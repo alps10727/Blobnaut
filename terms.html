@@ -1,1 +1,926 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Terms of Service for Blobnaut, a mobile game developed by Blue Game.">
+
+    <meta name="robots"
+          content="index, follow">
+
+    <meta name="theme-color"
+          content="#06100c">
+
+    <title>Terms of Service — Blobnaut</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #06100c;
+            --bg-soft: #0b1711;
+            --card: rgba(14, 28, 21, 0.82);
+
+            --green: #8cff65;
+            --green-dark: #52d83f;
+
+            --white: #f5fff2;
+            --text: #cbd8cc;
+            --muted: #8b9a8d;
+
+            --border: rgba(140, 255, 101, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                "Inter",
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(140, 255, 101, 0.09),
+                    transparent 35%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            line-height: 1.8;
+
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.015) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.015) 1px,
+                    transparent 1px
+                );
+
+            background-size: 60px 60px;
+        }
+
+        a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: min(900px, calc(100% - 36px));
+            margin: 0 auto;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.05);
+
+            background:
+                rgba(6, 16, 12, 0.78);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .header-inner {
+            height: 74px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            color: var(--white);
+
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .brand:hover {
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    var(--green-dark)
+                );
+
+            color: #061008;
+
+            font-weight: 900;
+
+            box-shadow:
+                0 0 25px
+                rgba(140,255,101,0.2);
+        }
+
+        .back-link {
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            padding:
+                85px 0
+                110px;
+        }
+
+        .intro {
+            margin-bottom: 55px;
+        }
+
+        .label {
+            color: var(--green);
+
+            font-size: 11px;
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--white);
+
+            font-size:
+                clamp(42px, 7vw, 70px);
+
+            line-height: 1;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            color: var(--muted);
+
+            max-width: 700px;
+
+            font-size: 15px;
+        }
+
+        .updated {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            padding: 7px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(140,255,101,0.04);
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .terms {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15,31,23,0.86),
+                    rgba(8,17,12,0.86)
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 26px;
+
+            padding:
+                clamp(25px, 5vw, 55px);
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,0.25);
+        }
+
+        .terms h2 {
+            color: var(--white);
+
+            font-size: 23px;
+
+            letter-spacing: -0.6px;
+
+            margin-top: 40px;
+            margin-bottom: 13px;
+        }
+
+        .terms h2:first-child {
+            margin-top: 0;
+        }
+
+        .terms h3 {
+            color: var(--white);
+
+            font-size: 17px;
+
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        .terms p {
+            color: var(--text);
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .terms ul {
+            margin:
+                10px 0
+                22px
+                25px;
+        }
+
+        .terms li {
+            color: var(--text);
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            padding: 18px 20px;
+
+            margin:
+                22px 0;
+
+            border-left:
+                3px solid var(--green);
+
+            background:
+                rgba(140,255,101,0.04);
+
+            border-radius:
+                0 12px 12px 0;
+        }
+
+        .highlight p {
+            margin: 0;
+        }
+
+        .email {
+            font-weight: 700;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 35px 0;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .footer-copy {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .container {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .header-inner {
+                height: 66px;
+            }
+
+            .brand {
+                font-size: 16px;
+            }
+
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+            }
+
+            main {
+                padding:
+                    60px 0
+                    80px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .terms {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="container header-inner">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <span class="brand-icon">
+                B
+            </span>
+
+            Blobnaut
+
+        </a>
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to website
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <div class="container">
+
+        <div class="intro">
+
+            <div class="label">
+                Legal
+            </div>
+
+            <h1>
+                Terms of Service
+            </h1>
+
+            <p>
+                These Terms of Service govern your use of
+                Blobnaut, a mobile game developed and
+                operated by Blue Game.
+            </p>
+
+            <div class="updated">
+                Last updated: September 14, 2026
+            </div>
+
+        </div>
+
+
+        <article class="terms">
+
+            <h2>
+                1. Acceptance of These Terms
+            </h2>
+
+            <p>
+                Welcome to Blobnaut. These Terms of Service
+                ("Terms") constitute an agreement between you
+                and Blue Game ("Blue Game", "we", "us", or
+                "our") regarding your use of the Blobnaut
+                mobile game ("the Game").
+            </p>
+
+            <p>
+                By downloading, accessing or using Blobnaut,
+                you agree to be bound by these Terms.
+            </p>
+
+            <p>
+                If you do not agree with these Terms, you
+                should not download, access or use the Game.
+            </p>
+
+
+            <h2>
+                2. Eligibility
+            </h2>
+
+            <p>
+                You may use Blobnaut only if you are legally
+                permitted to do so under the laws applicable
+                to you.
+            </p>
+
+            <p>
+                If you are a minor, you should use the Game
+                with the involvement and permission of a
+                parent or legal guardian where required by
+                applicable law.
+            </p>
+
+
+            <h2>
+                3. License to Use the Game
+            </h2>
+
+            <p>
+                Subject to these Terms, Blue Game grants you
+                a limited, non-exclusive, non-transferable
+                and revocable license to download and use
+                Blobnaut for personal, non-commercial
+                entertainment purposes.
+            </p>
+
+            <p>
+                This license does not transfer ownership of
+                the Game or any intellectual property to you.
+            </p>
+
+
+            <h2>
+                4. Prohibited Activities
+            </h2>
+
+            <p>
+                You agree not to use Blobnaut to:
+            </p>
+
+            <ul>
+
+                <li>
+                    Modify, copy, reproduce, distribute,
+                    sell or commercially exploit the Game
+                    or its content without authorization.
+                </li>
+
+                <li>
+                    Reverse engineer, decompile,
+                    disassemble or attempt to obtain the
+                    source code of the Game, except where
+                    expressly permitted by applicable law.
+                </li>
+
+                <li>
+                    Use cheats, exploits, bots, scripts,
+                    automation tools or unauthorized
+                    third-party software to alter gameplay.
+                </li>
+
+                <li>
+                    Manipulate scores, achievements,
+                    progression or other game-related data
+                    through unauthorized methods.
+                </li>
+
+                <li>
+                    Attempt to gain unauthorized access to
+                    systems, services or infrastructure
+                    associated with the Game.
+                </li>
+
+                <li>
+                    Interfere with the security, operation
+                    or availability of the Game.
+                </li>
+
+                <li>
+                    Use the Game for unlawful purposes or
+                    in violation of applicable laws.
+                </li>
+
+            </ul>
+
+
+            <h2>
+                5. Intellectual Property
+            </h2>
+
+            <p>
+                Blobnaut and all associated content,
+                including but not limited to its name,
+                logo, graphics, artwork, characters,
+                animations, sounds, music, software,
+                interface, gameplay systems and other
+                materials, are owned by or licensed to
+                Blue Game.
+            </p>
+
+            <p>
+                These materials are protected by applicable
+                copyright, trademark and other intellectual
+                property laws.
+            </p>
+
+            <p>
+                Nothing in these Terms grants you ownership
+                of any intellectual property belonging to
+                Blue Game.
+            </p>
+
+
+            <h2>
+                6. Game Updates and Changes
+            </h2>
+
+            <p>
+                We may modify, update, improve, add or remove
+                features, content, levels, mechanics or
+                functionality from Blobnaut at any time.
+            </p>
+
+            <p>
+                We may also release updates that are required
+                to continue using certain versions or
+                features of the Game.
+            </p>
+
+
+            <h2>
+                7. Game Availability
+            </h2>
+
+            <p>
+                We make reasonable efforts to keep Blobnaut
+                available and functional. However, we do not
+                guarantee that the Game will always be
+                available, uninterrupted, secure or
+                error-free.
+            </p>
+
+            <p>
+                The Game may occasionally be unavailable due
+                to maintenance, updates, technical problems,
+                third-party service interruptions or other
+                circumstances beyond our reasonable control.
+            </p>
+
+
+            <h2>
+                8. Third-Party Services and Advertising
+            </h2>
+
+            <p>
+                Blobnaut may use third-party services,
+                software development kits, advertising
+                networks, analytics providers or other
+                external services.
+            </p>
+
+            <p>
+                Third-party services may have their own terms
+                and privacy policies. Your use of such
+                services may be subject to those additional
+                terms.
+            </p>
+
+            <p>
+                Blue Game does not control and is not
+                responsible for the policies, content,
+                availability or practices of independent
+                third-party services.
+            </p>
+
+
+            <h2>
+                9. In-Game Content and Progress
+            </h2>
+
+            <p>
+                Certain game progress, scores, achievements,
+                settings or other gameplay information may
+                be stored locally on your device or through
+                supported third-party services.
+            </p>
+
+            <p>
+                We do not guarantee that gameplay progress or
+                other game data will always be preserved.
+                Data may be lost as a result of device
+                changes, application removal, technical
+                failures, updates or other circumstances.
+            </p>
+
+
+            <h2>
+                10. Disclaimer of Warranties
+            </h2>
+
+            <div class="highlight">
+
+                <p>
+                    To the maximum extent permitted by
+                    applicable law, Blobnaut is provided
+                    "as is" and "as available", without
+                    warranties of any kind except where
+                    such warranties cannot legally be
+                    excluded.
+                </p>
+
+            </div>
+
+            <p>
+                We do not guarantee that the Game will meet
+                your individual expectations, operate without
+                interruption or be completely free from
+                defects or errors.
+            </p>
+
+
+            <h2>
+                11. Limitation of Liability
+            </h2>
+
+            <p>
+                To the maximum extent permitted by applicable
+                law, Blue Game shall not be liable for any
+                indirect, incidental, special, consequential
+                or similar damages arising from or related
+                to your use of, or inability to use, Blobnaut.
+            </p>
+
+            <p>
+                Nothing in these Terms excludes or limits
+                liability where such exclusion or limitation
+                is prohibited by applicable law.
+            </p>
+
+
+            <h2>
+                12. Termination
+            </h2>
+
+            <p>
+                We may suspend or terminate access to
+                Blobnaut where reasonably necessary, including
+                where a user violates these Terms, engages in
+                cheating, abuse, unauthorized activity or
+                activities that may harm the Game or other
+                users.
+            </p>
+
+            <p>
+                You may stop using Blobnaut at any time by
+                uninstalling the Game from your device.
+            </p>
+
+
+            <h2>
+                13. Changes to These Terms
+            </h2>
+
+            <p>
+                We may update these Terms from time to time
+                to reflect changes to the Game, our services,
+                applicable law or our business practices.
+            </p>
+
+            <p>
+                When changes are made, the updated Terms will
+                be published on this page and the "Last
+                updated" date will be revised.
+            </p>
+
+            <p>
+                Your continued use of Blobnaut after updated
+                Terms become effective constitutes acceptance
+                of the revised Terms, to the extent permitted
+                by applicable law.
+            </p>
+
+
+            <h2>
+                14. Governing Law
+            </h2>
+
+            <p>
+                These Terms shall be interpreted and applied
+                in accordance with applicable laws.
+            </p>
+
+            <p>
+                Nothing in these Terms is intended to remove,
+                restrict or replace any mandatory consumer
+                protection rights that may apply to you under
+                the laws of your jurisdiction.
+            </p>
+
+
+            <h2>
+                15. Severability
+            </h2>
+
+            <p>
+                If any provision of these Terms is determined
+                to be invalid, unlawful or unenforceable, the
+                remaining provisions will continue to apply
+                to the maximum extent permitted by law.
+            </p>
+
+
+            <h2>
+                16. Entire Agreement
+            </h2>
+
+            <p>
+                These Terms, together with the Privacy Policy
+                applicable to Blobnaut, constitute the
+                agreement between you and Blue Game concerning
+                your use of the Game, except where additional
+                terms are expressly provided for specific
+                services or features.
+            </p>
+
+
+            <h2>
+                17. Contact Us
+            </h2>
+
+            <p>
+                If you have questions, concerns or requests
+                regarding these Terms of Service, please
+                contact Blue Game.
+            </p>
+
+            <p>
+
+                <strong>
+                    Blue Game
+                </strong>
+
+                <br>
+
+                Support:
+                <a
+                    class="email"
+                    href="mailto:support@bluegame.pro"
+                >
+                    support@bluegame.pro
+                </a>
+
+            </p>
+
+        </article>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div class="footer-copy">
+            © 2026 Blue Game. All rights reserved.
+        </div>
+
+        <div class="footer-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="privacy.html">
+                Privacy Policy
+            </a>
+
+            <a href="mailto:support@bluegame.pro">
+                Support
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
+```
 
